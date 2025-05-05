@@ -1,78 +1,35 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, StyleSheet, RefreshControl, Alert, TouchableOpacity } from 'react-native';
+import { View, FlatList, StyleSheet, RefreshControl, Alert } from 'react-native';
 import { Text, Card, FAB, ActivityIndicator, Chip, useTheme } from 'react-native-paper';
-import { useRouter } from 'expo-router';
-import ApiService from '../../src/api/ApiService';
+import ApiService from '../api/ApiService';
 
-type Pizza = {
-  pizzaId: string;
-  name: string;
-  quantity: number;
-  toppings?: string[];
-  specialInstructions?: string;
-};
-
-type Order = {
-  id?: string;
-  orderId?: string;
-  customerName: string;
-  status: string;
-  orderTime: string;
-  pizzas: Pizza[];
-  prepTime?: number;
-  platform?: string;
-  urgency?: 'low' | 'medium' | 'high';
-};
-
-export default function OrdersScreen() {
-  const [orders, setOrders] = useState<Order[]>([]);
+const OrdersScreen = ({ navigation }) => {
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const theme = useTheme();
-  const router = useRouter();
 
   // Load orders when the component mounts
   useEffect(() => {
     loadOrders();
-
-    // Set up refresh interval (every 30 seconds)
-    const refreshInterval = setInterval(() => {
-      loadOrders(false); // Silent refresh (no loading indicator)
-    }, 30000);
-    
-    // Clean up interval on unmount
-    return () => clearInterval(refreshInterval);
   }, []);
 
   // Fetch orders from the API
-  const loadOrders = async (showLoading = true) => {
+  const loadOrders = async () => {
     try {
-      if (showLoading) {
-        setLoading(true);
-      }
-      
+      setLoading(true);
       const result = await ApiService.getOrders();
       
       if (result.error) {
-        Alert.alert('Error', result.message || 'Failed to load orders');
+        Alert.alert('Error', result.message);
       } else {
         // Filter out delivered orders
-        const activeOrders = result.filter((order: Order) => order.status !== 'delivered');
+        const activeOrders = result.filter(order => order.status !== 'delivered');
         setOrders(activeOrders);
       }
     } catch (error) {
+      Alert.alert('Error', 'Failed to load orders');
       console.error('Error loading orders:', error);
-      if (showLoading) {
-        Alert.alert('Error', 'Failed to load orders');
-      }
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -86,20 +43,12 @@ export default function OrdersScreen() {
   };
 
   // Navigate to the order details screen
-  const viewOrderDetails = (order: Order) => {
-    router.push({
-      pathname: '/order-details',
-      params: { orderId: order.id || order.orderId }
-    });
-  };
-
-  // Navigate to new order screen
-  const createNewOrder = () => {
-    router.push('/new-order');
+  const viewOrderDetails = (order) => {
+    navigation.navigate('OrderDetails', { order });
   };
 
   // Get color for order status
-  const getStatusColor = (status: string, urgency?: string) => {
+  const getStatusColor = (status, urgency) => {
     if (status === 'completed' || status === 'delivered') return '#4CAF50';
     if (urgency === 'high') return '#F44336';
     if (urgency === 'medium') return '#FF9800';
@@ -107,7 +56,7 @@ export default function OrdersScreen() {
   };
 
   // Format order time
-  const formatOrderTime = (isoString: string) => {
+  const formatOrderTime = (isoString) => {
     const date = new Date(isoString);
     return date.toLocaleTimeString('en-US', { 
       hour: '2-digit', 
@@ -117,7 +66,7 @@ export default function OrdersScreen() {
   };
 
   // Calculate due time
-  const calculateDueTime = (orderTime: string, prepTime: number = 15) => {
+  const calculateDueTime = (orderTime, prepTime) => {
     const orderDate = new Date(orderTime);
     const dueDate = new Date(orderDate.getTime() + (prepTime * 60000));
     return dueDate.toLocaleTimeString('en-US', {
@@ -128,65 +77,61 @@ export default function OrdersScreen() {
   };
 
   // Render each order item
-  const renderItem = ({ item }: { item: Order }) => {
+  const renderItem = ({ item }) => {
     const totalPizzas = item.pizzas.reduce((sum, pizza) => sum + pizza.quantity, 0);
     const statusColor = getStatusColor(item.status, item.urgency);
     const dueTime = calculateDueTime(item.orderTime, item.prepTime || 15);
     
     return (
-      <TouchableOpacity 
+      <Card 
+        style={styles.card} 
         onPress={() => viewOrderDetails(item)}
-        activeOpacity={0.7}
+        mode="outlined"
       >
-        <Card 
-          style={styles.card} 
-          mode="outlined"
-        >
-          <Card.Content>
-            <View style={styles.cardHeader}>
-              <View>
-                <Text style={styles.orderId}>Order #{item.orderId || item.id}</Text>
-                <Text style={styles.orderTime}>
-                  Ordered at {formatOrderTime(item.orderTime)}
-                </Text>
-              </View>
-              <Chip 
-                mode="outlined" 
-                textStyle={{ color: statusColor }}
-                style={{ borderColor: statusColor }}
-              >
-                {item.status.toUpperCase()}
-              </Chip>
+        <Card.Content>
+          <View style={styles.cardHeader}>
+            <View>
+              <Text style={styles.orderId}>Order #{item.orderId || item.id}</Text>
+              <Text style={styles.orderTime}>
+                Ordered at {formatOrderTime(item.orderTime)}
+              </Text>
+            </View>
+            <Chip 
+              mode="outlined" 
+              textStyle={{ color: statusColor }}
+              style={{ borderColor: statusColor }}
+            >
+              {item.status.toUpperCase()}
+            </Chip>
+          </View>
+          
+          <View style={styles.orderInfo}>
+            <Text style={styles.totalPizzas}>
+              {totalPizzas} {totalPizzas === 1 ? 'Pizza' : 'Pizzas'}
+            </Text>
+            
+            <View style={styles.platformContainer}>
+              <Text style={styles.platformLabel}>Platform:</Text>
+              <Text style={styles.platformValue}>{item.platform || 'Walk-in'}</Text>
             </View>
             
-            <View style={styles.orderInfo}>
-              <Text style={styles.totalPizzas}>
-                {totalPizzas} {totalPizzas === 1 ? 'Pizza' : 'Pizzas'}
+            {item.customerName && (
+              <Text style={styles.customerName}>
+                Customer: {item.customerName}
               </Text>
-              
-              <View style={styles.platformContainer}>
-                <Text style={styles.platformLabel}>Platform:</Text>
-                <Text style={styles.platformValue}>{item.platform || 'Walk-in'}</Text>
-              </View>
-              
-              {item.customerName && (
-                <Text style={styles.customerName}>
-                  Customer: {item.customerName}
-                </Text>
-              )}
-            </View>
-            
-            <View style={styles.timeInfo}>
-              <Text style={styles.dueTime}>
-                Due by: <Text style={{ fontWeight: 'bold' }}>{dueTime}</Text>
-              </Text>
-              <Text style={styles.prepTime}>
-                Prep time: {item.prepTime || 15} min
-              </Text>
-            </View>
-          </Card.Content>
-        </Card>
-      </TouchableOpacity>
+            )}
+          </View>
+          
+          <View style={styles.timeInfo}>
+            <Text style={styles.dueTime}>
+              Due by: <Text style={{ fontWeight: 'bold' }}>{dueTime}</Text>
+            </Text>
+            <Text style={styles.prepTime}>
+              Prep time: {item.prepTime || 15} min
+            </Text>
+          </View>
+        </Card.Content>
+      </Card>
     );
   };
 
@@ -213,7 +158,6 @@ export default function OrdersScreen() {
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No active orders</Text>
-            <Text style={styles.emptySubtext}>Pull down to refresh or tap + to add a new order</Text>
           </View>
         }
       />
@@ -221,12 +165,12 @@ export default function OrdersScreen() {
       <FAB
         style={styles.fab}
         icon="plus"
-        onPress={createNewOrder}
+        onPress={() => navigation.navigate('NewOrder')}
         color="white"
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -309,12 +253,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
   },
-  emptySubtext: {
-    fontSize: 14,
-    color: '#999',
-    marginTop: 8,
-    textAlign: 'center',
-  },
   fab: {
     position: 'absolute',
     margin: 16,
@@ -323,3 +261,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#e76f51',
   },
 });
+
+export default OrdersScreen;
