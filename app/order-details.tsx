@@ -3,6 +3,7 @@ import { View, StyleSheet, ScrollView, Alert, ActivityIndicator } from 'react-na
 import { Text, Card, Button, Chip, Divider, useTheme, IconButton } from 'react-native-paper';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import ApiService from '../src/api/ApiService';
+import ViewFix from '../src/components/ViewFix';
 
 type Pizza = {
   pizzaId: string;
@@ -198,11 +199,11 @@ export default function OrderDetailsScreen() {
   const statusColor = getStatusColor(order.status);
 
   return (
-    <View style={styles.container}>
+    <ViewFix style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Card style={styles.header}>
           <Card.Content>
-            <View style={styles.orderIdRow}>
+            <ViewFix style={styles.orderIdRow}>
               <Text style={styles.orderId}>Order #{order.orderId || order.id}</Text>
               <Chip 
                 mode="outlined" 
@@ -211,38 +212,38 @@ export default function OrderDetailsScreen() {
               >
                 {order.status.toUpperCase()}
               </Chip>
-            </View>
+            </ViewFix>
             
-            <View style={styles.timeRow}>
-              <View>
+            <ViewFix style={styles.timeRow}>
+              <ViewFix>
                 <Text style={styles.timeLabel}>Ordered On</Text>
                 <Text style={styles.timeValue}>
                   {formatOrderDate(order.orderTime)} at {formatOrderTime(order.orderTime)}
                 </Text>
-              </View>
-              <View>
+              </ViewFix>
+              <ViewFix>
                 <Text style={styles.timeLabel}>Due By</Text>
                 <Text style={styles.timeValue}>{dueTime}</Text>
-              </View>
-            </View>
+              </ViewFix>
+            </ViewFix>
           </Card.Content>
         </Card>
 
         <Card style={styles.section}>
           <Card.Title title="Customer Information" />
           <Card.Content>
-            <View style={styles.infoRow}>
+            <ViewFix style={styles.infoRow}>
               <Text style={styles.infoLabel}>Name:</Text>
               <Text style={styles.infoValue}>{order.customerName || 'Walk-in Customer'}</Text>
-            </View>
-            <View style={styles.infoRow}>
+            </ViewFix>
+            <ViewFix style={styles.infoRow}>
               <Text style={styles.infoLabel}>Platform:</Text>
               <Text style={styles.infoValue}>{order.platform || 'Walk-in'}</Text>
-            </View>
-            <View style={styles.infoRow}>
+            </ViewFix>
+            <ViewFix style={styles.infoRow}>
               <Text style={styles.infoLabel}>Prep Time:</Text>
               <Text style={styles.infoValue}>{order.prepTime || 15} minutes</Text>
-            </View>
+            </ViewFix>
           </Card.Content>
         </Card>
 
@@ -255,16 +256,16 @@ export default function OrderDetailsScreen() {
           />
           <Card.Content>
             {order.pizzas.map((pizza, index) => (
-              <View key={`pizza-${index}`}>
+              <ViewFix key={`pizza-${index}`}>
                 {index > 0 && <Divider style={styles.divider} />}
-                <View style={styles.pizzaItem}>
-                  <View style={styles.pizzaHeader}>
+                <ViewFix style={styles.pizzaItem}>
+                  <ViewFix style={styles.pizzaHeader}>
                     <Text style={styles.pizzaName}>{pizza.name}</Text>
                     <Text style={styles.pizzaQuantity}>x{pizza.quantity}</Text>
-                  </View>
+                  </ViewFix>
                   
                   {pizza.isCooked !== undefined && (
-                    <View style={styles.pizzaStatus}>
+                    <ViewFix style={styles.pizzaStatus}>
                       <Text style={styles.statusLabel}>Status:</Text>
                       <Text style={[
                         styles.statusValue, 
@@ -272,17 +273,17 @@ export default function OrderDetailsScreen() {
                       ]}>
                         {pizza.isCooked ? 'Cooked' : 'Cooking'}
                       </Text>
-                    </View>
+                    </ViewFix>
                   )}
                   
                   {pizza.specialInstructions && (
-                    <View style={styles.specialInstructions}>
+                    <ViewFix style={styles.specialInstructions}>
                       <Text style={styles.instructionsLabel}>Special Instructions:</Text>
                       <Text style={styles.instructionsValue}>{pizza.specialInstructions}</Text>
-                    </View>
+                    </ViewFix>
                   )}
-                </View>
-              </View>
+                </ViewFix>
+              </ViewFix>
             ))}
           </Card.Content>
         </Card>
@@ -346,7 +347,7 @@ export default function OrderDetailsScreen() {
           </Card.Content>
         </Card>
       </ScrollView>
-    </View>
+    </ViewFix>
   );
 }
 

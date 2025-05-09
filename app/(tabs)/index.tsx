@@ -1,16 +1,9 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, FlatList, StyleSheet, RefreshControl, Alert, TouchableOpacity } from 'react-native';
 import { Text, Card, FAB, ActivityIndicator, Chip, useTheme } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import ApiService from '../../src/api/ApiService';
+import ViewFix from '../../src/components/ViewFix';
 
 type Pizza = {
   pizzaId: string;
@@ -143,13 +136,13 @@ export default function OrdersScreen() {
           mode="outlined"
         >
           <Card.Content>
-            <View style={styles.cardHeader}>
-              <View>
+            <ViewFix style={styles.cardHeader}>
+              <ViewFix>
                 <Text style={styles.orderId}>Order #{item.orderId || item.id}</Text>
                 <Text style={styles.orderTime}>
                   Ordered at {formatOrderTime(item.orderTime)}
                 </Text>
-              </View>
+              </ViewFix>
               <Chip 
                 mode="outlined" 
                 textStyle={{ color: statusColor }}
@@ -157,33 +150,26 @@ export default function OrdersScreen() {
               >
                 {item.status.toUpperCase()}
               </Chip>
-            </View>
+            </ViewFix>
             
-            <View style={styles.orderInfo}>
+            <ViewFix style={styles.orderInfo}>
               <Text style={styles.totalPizzas}>
                 {totalPizzas} {totalPizzas === 1 ? 'Pizza' : 'Pizzas'}
               </Text>
-              
-              <View style={styles.platformContainer}>
+              <ViewFix style={styles.platformContainer}>
                 <Text style={styles.platformLabel}>Platform:</Text>
                 <Text style={styles.platformValue}>{item.platform || 'Walk-in'}</Text>
-              </View>
-              
+              </ViewFix>
+              <ViewFix style={styles.timeInfo}>
+                <Text>Due By:</Text>
+                <Text style={styles.dueTime}>{dueTime}</Text>
+              </ViewFix>
               {item.customerName && (
                 <Text style={styles.customerName}>
                   Customer: {item.customerName}
                 </Text>
               )}
-            </View>
-            
-            <View style={styles.timeInfo}>
-              <Text style={styles.dueTime}>
-                Due by: <Text style={{ fontWeight: 'bold' }}>{dueTime}</Text>
-              </Text>
-              <Text style={styles.prepTime}>
-                Prep time: {item.prepTime || 15} min
-              </Text>
-            </View>
+            </ViewFix>
           </Card.Content>
         </Card>
       </TouchableOpacity>

@@ -15,7 +15,6 @@ import {
   Portal
 } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Application from 'expo-application';
 import Constants from 'expo-constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -57,16 +56,24 @@ export default function SettingsScreen() {
   // Get app version information
   const getAppVersionInfo = async () => {
     try {
+      // Using hardcoded version information instead of expo-application
       if (Platform.OS === 'ios') {
-        const version = Application.nativeApplicationVersion || '1.0.0';
-        const build = Application.nativeBuildVersion || '1';
-        setAppVersion(`${version} (${build})`);
+        setAppVersion('1.0.0 (1)');
       } else if (Platform.OS === 'android') {
-        const version = Application.nativeApplicationVersion || '1.0.0';
-        setAppVersion(version);
+        setAppVersion('1.0.0');
       } else {
         setAppVersion('1.0.0 (Web)');
       }
+
+      // For future reference, if expo-application is installed properly, use:
+      // if (Platform.OS === 'ios') {
+      //   const version = Application.nativeApplicationVersion || '1.0.0';
+      //   const build = Application.nativeBuildVersion || '1';
+      //   setAppVersion(`${version} (${build})`);
+      // } else if (Platform.OS === 'android') {
+      //   const version = Application.nativeApplicationVersion || '1.0.0';
+      //   setAppVersion(version);
+      // }
     } catch (error) {
       console.error('Error getting app version:', error);
       setAppVersion('1.0.0');

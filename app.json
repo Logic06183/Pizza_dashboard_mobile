@@ -1,21 +1,35 @@
 {
   "expo": {
-    "name": "Pizza_dashboard_mobile",
-    "slug": "Pizza_dashboard_mobile",
+    "name": "John Dough's Pizzeria",
+    "slug": "john-doughs-pizzeria",
+    "description": "Mobile app for John Dough's Sourdough Pizzeria staff to manage orders on the go",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "pizzadashboardmobile",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#e76f51"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/9c3a849d-580a-4ef9-986c-1c378f603967"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.johndoughs.pizzadashboard"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#e76f51"
       },
+      "package": "com.johndoughs.pizzadashboard",
       "edgeToEdgeEnabled": true
     },
     "web": {
@@ -37,6 +51,16 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "9c3a849d-580a-4ef9-986c-1c378f603967"
+      }
+    },
+    "owner": "cjp031",
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }

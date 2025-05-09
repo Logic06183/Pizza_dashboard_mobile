@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList, RefreshControl, TouchableOpacity, Alert } from 'react-native';
 import { Text, Card, ActivityIndicator, Checkbox, useTheme, Chip } from 'react-native-paper';
 import ApiService from '../../src/api/ApiService';
+import ViewFix from '../../src/components/ViewFix';
 
 type Pizza = {
   pizzaId: string;
@@ -173,31 +174,31 @@ export default function KitchenScreen() {
       pizza.specialInstructions && pizza.specialInstructions.trim().length > 0;
     
     return (
-      <View key={`${order.id || order.orderId}-pizza-${index}`} style={styles.pizzaItem}>
-        <View style={styles.pizzaHeader}>
-          <View style={styles.pizzaInfo}>
+      <ViewFix key={`${order.id || order.orderId}-pizza-${index}`} style={styles.pizzaItem}>
+        <ViewFix style={styles.pizzaHeader}>
+          <ViewFix style={styles.pizzaInfo}>
             <Text style={styles.pizzaName}>{pizza.name}</Text>
             {pizza.quantity > 1 && (
-              <Chip size={20} style={styles.quantityChip}>
+              <Chip style={styles.quantityChip}>
                 x{pizza.quantity}
               </Chip>
             )}
-          </View>
+          </ViewFix>
           <Checkbox
             status={pizza.isCooked ? 'checked' : 'unchecked'}
             onPress={() => togglePizzaCooked(order, index)}
           />
-        </View>
+        </ViewFix>
         
         {hasSpecialInstructions && (
-          <View style={styles.instructionsContainer}>
+          <ViewFix style={styles.instructionsContainer}>
             <Text style={styles.instructionsLabel}>Special instructions:</Text>
             <Text style={styles.instructionsText}>
               {pizza.specialInstructions}
             </Text>
-          </View>
+          </ViewFix>
         )}
-      </View>
+      </ViewFix>
     );
   };
 
