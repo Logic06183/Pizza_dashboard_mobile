@@ -13,8 +13,10 @@ import {
 } from 'firebase/firestore';
 import { db } from './config';
 
-// Collection reference
+// Collection references - using the same collections as the web app
 const ordersRef = collection(db, 'orders');
+const pizzasRef = collection(db, 'pizzas'); // In case the web app has a pizzas collection
+const customersRef = collection(db, 'customers'); // In case the web app tracks customers separately
 
 // Get all orders for a specific user
 export const getUserOrders = async (userId) => {

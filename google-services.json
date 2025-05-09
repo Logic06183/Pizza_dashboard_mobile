@@ -1,0 +1,28 @@
+{
+  "project_info": {
+    "project_number": "1078434485366",
+    "project_id": "pizza-dashboard-92057",
+    "storage_bucket": "pizza-dashboard-92057.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078434485366:android:bc6c95fdf8fa34e71568a1",
+        "android_client_info": {
+          "package_name": "com.pizza.pizzadashboardmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGdE3NNKFpZuKZ0uI3qCWXVtX92Z"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ]
+}

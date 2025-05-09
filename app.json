@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "John Dough's Pizzeria",
-    "slug": "john-doughs-pizzeria",
-    "description": "Mobile app for John Dough's Sourdough Pizzeria staff to manage orders on the go",
+    "name": "Pizza Dashboard Mobile",
+    "slug": "pizza-dashboard-mobile",
+    "description": "Mobile app for tracking pizza orders from Firebase in real-time",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -22,14 +22,16 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.johndoughs.pizzadashboard"
+      "bundleIdentifier": "johndoughs",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#e76f51"
       },
-      "package": "com.johndoughs.pizzadashboard",
+      "package": "com.pizza.pizzadashboardmobile",
+      "googleServicesFile": "./google-services.json",
       "edgeToEdgeEnabled": true
     },
     "web": {
@@ -47,7 +49,10 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-firebase/firestore"
     ],
     "experiments": {
       "typedRoutes": true

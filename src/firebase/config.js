@@ -1,31 +1,64 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import { getMessaging } from 'firebase/messaging';
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getFirestore, initializeFirestore, CACHE_SIZE_UNLIMITED } from 'firebase/firestore';
+import { getAuth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 
-// Your Firebase configuration
-// Replace these with your actual Firebase project configuration
+// Firebase configuration for the Pizza Dashboard project (johndoughs app)
+// This connects to the Firebase project used by your existing app
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: 'AIzaSyAGdE3NNKFpZuKZ0uI3qCWXVtX92Z', // Replace with actual API key if needed
+  authDomain: 'pizza-dashboard-92057.firebaseapp.com',
+  projectId: 'pizza-dashboard-92057', 
+  storageBucket: 'pizza-dashboard-92057.appspot.com',
+  messagingSenderId: '287044348356', // Updated with correct GCM Sender ID
+  appId: '1:287044348356:ios:5eb4c95d0f6a3eb2159c91' // Updated with correct App ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+// Configuration is now set up with values from your GoogleService-Info.plist
 
-// Initialize Firebase Cloud Messaging
-let messaging = null;
-try {
-  messaging = getMessaging(app);
-} catch (error) {
-  console.log('Firebase messaging not supported in this environment');
+// Initialize Firebase
+let app;
+let auth;
+let db;
+
+// Check if Firebase is already initialized
+if (getApps().length === 0) {
+  app = initializeApp(firebaseConfig);
+  
+  // Initialize auth with AsyncStorage persistence for React Native
+  auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(AsyncStorage)
+  });
+  
+  // Initialize Firestore with settings optimized for mobile
+  db = initializeFirestore(app, {
+    cacheSizeBytes: CACHE_SIZE_UNLIMITED,
+  });
+} else {
+  app = getApp();
+  auth = getAuth(app);
+  db = getFirestore(app);
 }
 
-export { app, auth, db, messaging };
+// Firebase Messaging for push notifications will be configured separately
+// for iOS and Android using the native Firebase SDKs
+
+/**
+ * How to set up push notifications:
+ * 
+ * For Android:
+ * 1. Install @react-native-firebase/messaging
+ * 2. Update AndroidManifest.xml
+ * 3. Create firebase_messaging_service.xml
+ * 
+ * For iOS:
+ * 1. Setup APNs
+ * 2. Add push capability in XCode
+ * 3. Configure Info.plist
+ * 
+ * This functionality would be implemented in a separate module
+ * dedicated to handling notifications
+ */
+
+export { app, auth, db };
