@@ -1,0 +1,144 @@
+# Queries for pizza-dashboard-92057 mobile app
+# IMPORTANT: These queries only READ data from your existing Firebase database
+# and will not modify any data or affect the web app in any way
+
+# Get all orders - only authenticated users can access
+query GetAllOrders @auth(level: USER) {
+  orders {
+    id
+    userId
+    customerName
+    status
+    items
+    deliveryDetails
+    subtotal
+    deliveryFee
+    tax
+    discount
+    totalAmount
+    paymentMethod
+    createdAt
+    updatedAt
+  }
+}
+
+# Get orders by status - only authenticated users can access
+query GetOrdersByStatus($status: String!) @auth(level: USER) {
+  orders(where: {status: {eq: $status}}) {
+    id
+    userId
+    customerName
+    status
+    items
+    deliveryDetails
+    totalAmount
+    createdAt
+    updatedAt
+  }
+}
+
+# Get orders for a specific user - only authenticated users can access their own orders
+query GetMyOrders @auth(level: USER) {
+  orders(where: {userId: {eq: "auth.uid"}}) {
+    id
+    status
+    items
+    deliveryDetails
+    totalAmount
+    createdAt
+    updatedAt
+  }
+}
+
+# Get a specific order by ID - only authenticated users can access
+query GetOrderById($orderId: String!) @auth(level: USER) {
+  order(id: $orderId) {
+    id
+    userId
+    customerName
+    status
+    items
+    deliveryDetails
+    notes
+    subtotal
+    deliveryFee
+    tax
+    discount
+    totalAmount
+    paymentMethod
+    createdAt
+    updatedAt
+  }
+}
+
+# Get all pizza types - anyone can view the menu
+query GetPizzas @auth(level: PUBLIC) {
+  pizzas {
+    id
+    name
+    description
+    price
+    imageUrl
+    ingredients
+    category
+    isAvailable
+  }
+}
+
+# # Logged in users can list all their reviews and movie titles associated with the review
+# # Since the query uses the uid of the current authenticated user, we set auth level to USER
+# query ListUserReviews @auth(level: USER) {
+#   user(key: { id_expr: "auth.uid" }) {
+#     id
+#     username
+#     # <field>_on_<foreign_key_field> makes it easy to grab info from another table
+#     # Here, we use it to grab all the reviews written by the user.
+#     reviews: reviews_on_user {
+#       rating
+#       reviewDate
+#       reviewText
+#       movie {
+#         id
+#         title
+#       }
+#     }
+#   }
+# }
+
+# # Get movie by id
+# query GetMovieById($id: UUID!) @auth(level: PUBLIC) {
+#   movie(id: $id) {
+#     id
+#     title
+#     imageUrl
+#     genre
+#     metadata: movieMetadata_on_movie {
+#       rating
+#       releaseYear
+#       description
+#     }
+#     reviews: reviews_on_movie {
+#       reviewText
+#       reviewDate
+#       rating
+#       user {
+#         id
+#         username
+#       }
+#     }
+#   }
+# }
+
+# # Search for movies, actors, and reviews
+# query SearchMovie($titleInput: String, $genre: String) @auth(level: PUBLIC) {
+#   movies(
+#     where: {
+#       _and: [{ genre: { eq: $genre } }, { title: { contains: $titleInput } }]
+#     }
+#   ) {
+#     id
+#     title
+#     genre
+#     imageUrl
+#   }
+# }

@@ -1,0 +1,47 @@
+# Pizza Dashboard Schema - Matches existing Firebase data structure
+# IMPORTANT: This schema reads your existing data without modifying it
+
+# Users from Firebase Authentication
+type User @table {
+  # User ID from Firebase Auth
+  id: String! @default(expr: "auth.uid")
+  displayName: String
+  email: String
+  photoURL: String
+  createdAt: Timestamp
+}
+
+# Pizza Orders - matches your existing orders collection
+type Order @table {
+  # Generated ID from Firestore
+  id: String!
+  userId: String
+  customerName: String
+  status: String
+  # Use String types for complex nested data
+  # These will be handled in the connector mapping
+  items: String  # Will contain the JSON string of order items
+  deliveryDetails: String  # Will contain the JSON string of delivery details
+  notes: String  # Will contain the JSON string of order notes
+  # Regular fields
+  subtotal: Float
+  deliveryFee: Float
+  tax: Float
+  discount: Float
+  totalAmount: Float
+  paymentMethod: String
+  createdAt: Timestamp
+  updatedAt: Timestamp
+}
+
+# Pizza Types - if you have a pizzas collection
+type Pizza @table {
+  id: String!
+  name: String!
+  description: String
+  price: Float!
+  imageUrl: String
+  ingredients: String  # Will contain the JSON string of ingredients
+  category: String
+  isAvailable: Boolean
+}

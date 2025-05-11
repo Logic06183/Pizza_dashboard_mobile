@@ -1,0 +1,462 @@
+extend type Order {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "Order", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `Order` table.
+  """
+  _count: Int! @fdc_generated(from: "Order", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `customerName` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  customerName_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.customerName", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `deliveryDetails` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  deliveryDetails_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.deliveryDetails", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `deliveryFee` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  deliveryFee_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.deliveryFee", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `discount` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  discount_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.discount", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `items` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  items_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.items", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `notes` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  notes_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.notes", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `paymentMethod` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  paymentMethod_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.paymentMethod", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `status` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  status_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.status", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `subtotal` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  subtotal_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.subtotal", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `tax` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  tax_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.tax", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `totalAmount` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  totalAmount_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.totalAmount", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `updatedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  updatedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.updatedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Order` table where the `userId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  userId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Order.userId", purpose: QUERY_COUNT)
+  """
+  ✨ Sum the `deliveryFee` field in the `Order` table.
+  """
+  deliveryFee_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Order.deliveryFee", purpose: QUERY_SUM)
+  """
+  ✨ Sum the `discount` field in the `Order` table.
+  """
+  discount_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Order.discount", purpose: QUERY_SUM)
+  """
+  ✨ Sum the `subtotal` field in the `Order` table.
+  """
+  subtotal_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Order.subtotal", purpose: QUERY_SUM)
+  """
+  ✨ Sum the `tax` field in the `Order` table.
+  """
+  tax_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Order.tax", purpose: QUERY_SUM)
+  """
+  ✨ Sum the `totalAmount` field in the `Order` table.
+  """
+  totalAmount_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Order.totalAmount", purpose: QUERY_SUM)
+  """
+  ✨ Average the `deliveryFee` field in the `Order` table.
+  """
+  deliveryFee_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Order.deliveryFee", purpose: QUERY_AVG)
+  """
+  ✨ Average the `discount` field in the `Order` table.
+  """
+  discount_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Order.discount", purpose: QUERY_AVG)
+  """
+  ✨ Average the `subtotal` field in the `Order` table.
+  """
+  subtotal_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Order.subtotal", purpose: QUERY_AVG)
+  """
+  ✨ Average the `tax` field in the `Order` table.
+  """
+  tax_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Order.tax", purpose: QUERY_AVG)
+  """
+  ✨ Average the `totalAmount` field in the `Order` table.
+  """
+  totalAmount_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Order.totalAmount", purpose: QUERY_AVG)
+  """
+  ✨ Minimum of the `createdAt` field in the `Order` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "Order.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `deliveryFee` field in the `Order` table.
+  """
+  deliveryFee_min: Float @fdc_generated(from: "Order.deliveryFee", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `discount` field in the `Order` table.
+  """
+  discount_min: Float @fdc_generated(from: "Order.discount", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `subtotal` field in the `Order` table.
+  """
+  subtotal_min: Float @fdc_generated(from: "Order.subtotal", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `tax` field in the `Order` table.
+  """
+  tax_min: Float @fdc_generated(from: "Order.tax", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `totalAmount` field in the `Order` table.
+  """
+  totalAmount_min: Float @fdc_generated(from: "Order.totalAmount", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `updatedAt` field in the `Order` table.
+  """
+  updatedAt_min: Timestamp @fdc_generated(from: "Order.updatedAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `createdAt` field in the `Order` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "Order.createdAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `deliveryFee` field in the `Order` table.
+  """
+  deliveryFee_max: Float @fdc_generated(from: "Order.deliveryFee", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `discount` field in the `Order` table.
+  """
+  discount_max: Float @fdc_generated(from: "Order.discount", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `subtotal` field in the `Order` table.
+  """
+  subtotal_max: Float @fdc_generated(from: "Order.subtotal", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `tax` field in the `Order` table.
+  """
+  tax_max: Float @fdc_generated(from: "Order.tax", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `totalAmount` field in the `Order` table.
+  """
+  totalAmount_max: Float @fdc_generated(from: "Order.totalAmount", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `updatedAt` field in the `Order` table.
+  """
+  updatedAt_max: Timestamp @fdc_generated(from: "Order.updatedAt", purpose: QUERY_MAX)
+}
+extend type Pizza {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "Pizza", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `Pizza` table.
+  """
+  _count: Int! @fdc_generated(from: "Pizza", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Pizza` table where the `category` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  category_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Pizza.category", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Pizza` table where the `description` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  description_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Pizza.description", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Pizza` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Pizza.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Pizza` table where the `imageUrl` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  imageUrl_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Pizza.imageUrl", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Pizza` table where the `ingredients` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  ingredients_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Pizza.ingredients", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Pizza` table where the `isAvailable` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  isAvailable_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Pizza.isAvailable", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Pizza` table where the `name` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  name_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Pizza.name", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Pizza` table where the `price` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  price_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Pizza.price", purpose: QUERY_COUNT)
+  """
+  ✨ Sum the `price` field in the `Pizza` table.
+  """
+  price_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Pizza.price", purpose: QUERY_SUM)
+  """
+  ✨ Average the `price` field in the `Pizza` table.
+  """
+  price_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Pizza.price", purpose: QUERY_AVG)
+  """
+  ✨ Minimum of the `price` field in the `Pizza` table.
+  """
+  price_min: Float @fdc_generated(from: "Pizza.price", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `price` field in the `Pizza` table.
+  """
+  price_max: Float @fdc_generated(from: "Pizza.price", purpose: QUERY_MAX)
+}
+extend type User {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "User", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `User` table.
+  """
+  _count: Int! @fdc_generated(from: "User", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `displayName` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  displayName_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.displayName", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `email` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  email_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.email", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `photoURL` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  photoURL_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.photoURL", purpose: QUERY_COUNT)
+  """
+  ✨ Minimum of the `createdAt` field in the `User` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "User.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `createdAt` field in the `User` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "User.createdAt", purpose: QUERY_MAX)
+}

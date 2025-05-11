@@ -1,0 +1,27 @@
+connectorId: default
+
+# This connector connects to your existing pizza-dashboard-92057 Firestore database
+# It provides a read-only interface to your existing data
+sources:
+  firestore:
+    collections:
+      # Map Firestore collections to schema types
+      orders:
+        schemaType: Order
+      pizzas:
+        schemaType: Pizza
+      users:
+        schemaType: User
+
+# Generate JavaScript SDK for React
+generate:
+  javascriptSdk:
+    outputDir: ../../dataconnect-generated/js/default-connector
+    package: "@firebasegen/default-connector"
+    packageJsonDir: ../..
+    react: true
+
+# Authentication configuration - uses Firebase Auth
+auth:
+  providers:
+    - firebase

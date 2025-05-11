@@ -1,0 +1,15 @@
+specVersion: "v1"
+serviceId: "pizzadashboardmobile"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    firestore:
+      # Using your existing pizza-dashboard Firestore database
+      project: "pizza-dashboard-92057"
+      # This ensures read-only access to your existing data
+      readOnly: true
+connectorDirs: ["./connector"]
+
+# This configuration connects to your existing Firebase Firestore database
+# in read-only mode, ensuring it won't affect your web app's data
