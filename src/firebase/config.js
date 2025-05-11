@@ -1,8 +1,7 @@
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getFirestore, initializeFirestore, CACHE_SIZE_UNLIMITED } from 'firebase/firestore';
-import { getAuth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform } from 'react-native';
 
 // Firebase configuration for the Pizza Dashboard project (johndoughs app)
 // This connects to the Firebase project used by your existing app
@@ -15,31 +14,14 @@ const firebaseConfig = {
   appId: '1:287044348356:ios:5eb4c95d0f6a3eb2159c91' // Updated with correct App ID
 };
 
-// Configuration is now set up with values from your GoogleService-Info.plist
+// Initialize Firebase using the web SDK (works better with Expo)
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-// Initialize Firebase
-let app;
-let auth;
-let db;
-
-// Check if Firebase is already initialized
-if (getApps().length === 0) {
-  app = initializeApp(firebaseConfig);
-  
-  // Initialize auth with AsyncStorage persistence for React Native
-  auth = initializeAuth(app, {
-    persistence: getReactNativePersistence(AsyncStorage)
-  });
-  
-  // Initialize Firestore with settings optimized for mobile
-  db = initializeFirestore(app, {
-    cacheSizeBytes: CACHE_SIZE_UNLIMITED,
-  });
-} else {
-  app = getApp();
-  auth = getAuth(app);
-  db = getFirestore(app);
-}
+// Enable offline persistence for Firestore (if needed)
+// This requires additional setup with enableIndexedDbPersistence
+// but we'll keep it simple for now
 
 // Firebase Messaging for push notifications will be configured separately
 // for iOS and Android using the native Firebase SDKs
