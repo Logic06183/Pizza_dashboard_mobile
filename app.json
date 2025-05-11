@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Pizza Dashboard Mobile",
-    "slug": "pizza-dashboard-mobile",
+    "name": "John Dough's Pizzeria",
+    "slug": "john-doughs-pizzeria",
     "description": "Mobile app for tracking pizza orders from Firebase in real-time",
     "version": "1.0.0",
     "orientation": "portrait",
